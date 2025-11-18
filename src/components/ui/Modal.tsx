@@ -9,7 +9,13 @@ export function ModalHost() {
 
   if (!modal || !modal.isOpen) return null;
 
-  const { title, description, confirmLabel = "Confirm", cancelLabel = "Cancel", onConfirm } = modal;
+  const {
+    title,
+    description,
+    confirmLabel = "Confirm",
+    cancelLabel = "Cancel",
+    onConfirm,
+  } = modal;
 
   const handleConfirm = () => {
     onConfirm?.();
@@ -45,5 +51,3 @@ export function ModalHost() {
     </div>
   );
 }
-
-

@@ -10,12 +10,14 @@ interface SectionProps {
   className?: string;
 }
 
-export function Section({ title, description, children, className }: SectionProps) {
+export function Section({
+  title,
+  description,
+  children,
+  className,
+}: SectionProps) {
   return (
-    <section className={clsx(
-      "rounded-lg bg-white p-4 shadow-sm",
-      className,
-    )}>
+    <section className={clsx("rounded-lg bg-white p-4 shadow-sm", className)}>
       {title ? (
         <header className="mb-3">
           <h2 className="text-base font-semibold text-zinc-900">{title}</h2>
@@ -28,5 +30,3 @@ export function Section({ title, description, children, className }: SectionProp
     </section>
   );
 }
-
-

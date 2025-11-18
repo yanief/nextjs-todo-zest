@@ -9,14 +9,20 @@ export function AddTodoForm() {
   const createMutation = useCreateTodoMutation();
 
   const {
-    register, handleSubmit, reset, formState: { errors, isSubmitting },
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     defaultValues: { title: "" },
   });
 
   const onSubmit = (values: FormValues) => {
     if (!values.title.trim()) return;
-    createMutation.mutate({ title: values.title.trim() }, { onSuccess: () => reset() });
+    createMutation.mutate(
+      { title: values.title.trim() },
+      { onSuccess: () => reset() },
+    );
   };
 
   return (
@@ -37,13 +43,17 @@ export function AddTodoForm() {
           placeholder="e.g. Buy groceries"
           aria-describedby="title-help"
           {...register("title", { required: "Title is required" })}
-          error={errors.title?.message} />
+          error={errors.title?.message}
+        />
         <p id="title-help" className="mt-1 text-[11px] text-zinc-400">
           Press “Add” to create. Title cannot be empty.
         </p>
       </div>
       <div className="pt-5 sm:pt-7">
-        <Button type="submit" disabled={isSubmitting || createMutation.isPending}>
+        <Button
+          type="submit"
+          disabled={isSubmitting || createMutation.isPending}
+        >
           {createMutation.isPending ? "Adding..." : "Add"}
         </Button>
       </div>

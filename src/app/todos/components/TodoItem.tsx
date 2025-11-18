@@ -17,7 +17,10 @@ export function TodoItem({ todo }: TodoItemProps) {
   const openModal = useUIStore((s) => s.openModal);
 
   const toggleCompleted = () => {
-    updateMutation.mutate({ id: todo.id, patch: { completed: !todo.completed } });
+    updateMutation.mutate({
+      id: todo.id,
+      patch: { completed: !todo.completed },
+    });
   };
 
   const confirmDelete = () => {
@@ -44,7 +47,9 @@ export function TodoItem({ todo }: TodoItemProps) {
           href={`/todos/${todo.id}`}
           className="flex-1 text-sm text-zinc-900 hover:underline"
         >
-          <span className={todo.completed ? "line-through text-zinc-400" : ""}>{todo.title}</span>
+          <span className={todo.completed ? "line-through text-zinc-400" : ""}>
+            {todo.title}
+          </span>
         </Link>
       </div>
       <div className="flex items-center gap-2">
@@ -60,5 +65,3 @@ export function TodoItem({ todo }: TodoItemProps) {
     </li>
   );
 }
-
-

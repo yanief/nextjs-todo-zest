@@ -48,5 +48,3 @@ export const useUIStore = create<UIState>((set) => ({
       modal: null,
     }),
 }));
-
-

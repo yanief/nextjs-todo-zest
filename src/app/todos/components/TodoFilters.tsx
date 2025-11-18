@@ -7,17 +7,12 @@ import { Select } from "@/components/ui/Select";
 
 type StatusFilter = "all" | "active" | "completed";
 
-interface TodoFiltersProps {
-  pageSize: number;
-}
-
-export function TodoFilters({ pageSize }: TodoFiltersProps) {
+export function TodoFilters() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const status = (searchParams.get("status") as StatusFilter) ?? "all";
   const q = searchParams.get("q") ?? "";
-  const page = Number(searchParams.get("page") ?? "1");
 
   const updateParams = useCallback(
     (next: Partial<{ status: StatusFilter; q: string; page: number }>) => {
@@ -27,13 +22,16 @@ export function TodoFilters({ pageSize }: TodoFiltersProps) {
       if (next.page !== undefined) params.set("page", String(next.page));
       router.push(`/todos?${params.toString()}`);
     },
-    [router, searchParams]
+    [router, searchParams],
   );
 
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
       <div className="flex-1">
-        <label className="mb-1 block text-xs font-medium text-zinc-600" htmlFor="search">
+        <label
+          className="mb-1 block text-xs font-medium text-zinc-600"
+          htmlFor="search"
+        >
           Search
         </label>
         <Input
@@ -48,14 +46,19 @@ export function TodoFilters({ pageSize }: TodoFiltersProps) {
         </p>
       </div>
       <div className="w-full sm:w-40">
-        <label className="mb-1 block text-xs font-medium text-zinc-600" htmlFor="status">
+        <label
+          className="mb-1 block text-xs font-medium text-zinc-600"
+          htmlFor="status"
+        >
           Status
         </label>
         <Select
           id="status"
           value={status}
           aria-label="Filter todos by status"
-          onChange={(e) => updateParams({ status: e.target.value as StatusFilter, page: 1 })}
+          onChange={(e) =>
+            updateParams({ status: e.target.value as StatusFilter, page: 1 })
+          }
         >
           <option value="all">All</option>
           <option value="active">Active</option>
@@ -65,5 +68,3 @@ export function TodoFilters({ pageSize }: TodoFiltersProps) {
     </div>
   );
 }
-
-

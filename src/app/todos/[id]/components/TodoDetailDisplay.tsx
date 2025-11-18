@@ -16,27 +16,33 @@ const useTodoDetailDisplay = () => {
   const router = useRouter();
   const openModal = useUIStore((s) => s.openModal);
 
-  const backToTodoList= () => router.push("/todos");
+  const backToTodoList = () => router.push("/todos");
 
   return {
     updateTodo: (todo: Pick<Todo, "id" | "title">) => {
-      updateMutation.mutate({ id: todo.id, patch: { title: todo.title.trim() } });
+      updateMutation.mutate({
+        id: todo.id,
+        patch: { title: todo.title.trim() },
+      });
     },
     deleteTodo: (todo: Todo) => {
       deleteMutation.mutate(todo.id, {
         onSuccess: () => backToTodoList(),
-      })
+      });
     },
     openModal,
     backToTodoList,
     isUpdating: updateMutation.isPending,
-  }
-}
+  };
+};
 
-export function TodoDetailDisplay({ todo }: { todo: Todo; }) {
-  const { updateTodo, deleteTodo, isUpdating, openModal, backToTodoList } = useTodoDetailDisplay()
+export function TodoDetailDisplay({ todo }: { todo: Todo }) {
+  const { updateTodo, deleteTodo, isUpdating, openModal, backToTodoList } =
+    useTodoDetailDisplay();
   const {
-    register, handleSubmit, formState: { errors, isSubmitting },
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     defaultValues: { title: todo.title },
   });
@@ -63,14 +69,18 @@ export function TodoDetailDisplay({ todo }: { todo: Todo; }) {
         onSubmit={handleSubmit(onSubmit)}
         aria-label="Edit todo form"
       >
-        <label className="mb-1 block text-xs font-medium text-zinc-600" htmlFor="title">
+        <label
+          className="mb-1 block text-xs font-medium text-zinc-600"
+          htmlFor="title"
+        >
           Title
         </label>
         <Input
           id="title"
           aria-describedby="title-help"
           {...register("title", { required: "Title is required" })}
-          error={errors.title?.message} />
+          error={errors.title?.message}
+        />
         <p id="title-help" className="mt-1 text-[11px] text-zinc-400">
           Update the title and click save.
         </p>
@@ -78,11 +88,7 @@ export function TodoDetailDisplay({ todo }: { todo: Todo; }) {
           <Button type="submit" disabled={isSubmitting || isUpdating}>
             {isUpdating ? "Saving..." : "Save"}
           </Button>
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={backToTodoList}
-          >
+          <Button type="button" variant="secondary" onClick={backToTodoList}>
             Back
           </Button>
           <Button

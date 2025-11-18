@@ -11,5 +11,3 @@ export function PageContainer({ children }: { children: ReactNode }) {
     </div>
   );
 }
-
-

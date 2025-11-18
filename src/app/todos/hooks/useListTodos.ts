@@ -21,5 +21,3 @@ export function useListTodos(params: ListTodosParams) {
     refetchOnWindowFocus: false,
   });
 }
-
-

@@ -8,7 +8,7 @@ interface TodoDetailPageProps {
 }
 
 export default function TodoDetailPage({ params }: TodoDetailPageProps) {
-  const { id } = use(params)
+  const { id } = use(params);
   return (
     <PageContainer>
       <Section title="Todo Details">
@@ -17,5 +17,3 @@ export default function TodoDetailPage({ params }: TodoDetailPageProps) {
     </PageContainer>
   );
 }
-
-

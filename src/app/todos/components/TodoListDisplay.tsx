@@ -5,7 +5,11 @@ import { PaginatedTodo } from "@/types/todo";
 import { useRouter, useSearchParams } from "next/navigation";
 import { TodoItem } from "./TodoItem";
 
-export const TodoListDisplay = ({ paginatedTodo }: { paginatedTodo: PaginatedTodo; }) => {
+export const TodoListDisplay = ({
+  paginatedTodo,
+}: {
+  paginatedTodo: PaginatedTodo;
+}) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -19,12 +23,17 @@ export const TodoListDisplay = ({ paginatedTodo }: { paginatedTodo: PaginatedTod
     return (
       <div className="flex flex-col items-center justify-center gap-2 py-10 text-center">
         <p className="text-sm text-zinc-500">No todos yet.</p>
-        <p className="text-xs text-zinc-400">Use the form above to create your first task.</p>
+        <p className="text-xs text-zinc-400">
+          Use the form above to create your first task.
+        </p>
       </div>
     );
   }
 
-  const totalPages = Math.max(1, Math.ceil(paginatedTodo.total / paginatedTodo.pageSize));
+  const totalPages = Math.max(
+    1,
+    Math.ceil(paginatedTodo.total / paginatedTodo.pageSize),
+  );
 
   return (
     <>

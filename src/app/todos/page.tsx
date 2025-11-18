@@ -12,12 +12,13 @@ export default function TodosPage() {
       <header className="flex flex-col gap-1">
         <h1 className="text-2xl font-semibold text-zinc-900">Todos</h1>
         <p className="text-sm text-zinc-500">
-          Create, filter, and manage your tasks. Pagination is shareable via the URL.
+          Create, filter, and manage your tasks. Pagination is shareable via the
+          URL.
         </p>
       </header>
 
       <Section>
-        <TodoFilters pageSize={10} />
+        <TodoFilters />
       </Section>
 
       <Section title="Your Todos">
@@ -29,5 +30,3 @@ export default function TodosPage() {
     </PageContainer>
   );
 }
-
-

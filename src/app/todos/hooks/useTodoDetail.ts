@@ -13,5 +13,3 @@ export function useTodoDetail(id: string) {
     enabled: Boolean(id),
   });
 }
-
-

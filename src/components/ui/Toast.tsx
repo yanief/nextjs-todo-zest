@@ -11,7 +11,7 @@ export function ToastHost() {
     const timeouts = toasts.map((toast) =>
       setTimeout(() => {
         removeToast(toast.id);
-      }, 4000)
+      }, 4000),
     );
     return () => {
       timeouts.forEach(clearTimeout);
@@ -29,8 +29,8 @@ export function ToastHost() {
           toast.variant === "success"
             ? "bg-emerald-50 border-emerald-200 text-emerald-900"
             : toast.variant === "error"
-            ? "bg-red-50 border-red-200 text-red-900"
-            : "bg-zinc-50 border-zinc-200 text-zinc-900";
+              ? "bg-red-50 border-red-200 text-red-900"
+              : "bg-zinc-50 border-zinc-200 text-zinc-900";
 
         return (
           <div key={toast.id} className={`${base} ${variantClass}`}>
@@ -47,5 +47,3 @@ export function ToastHost() {
     </div>
   );
 }
-
-

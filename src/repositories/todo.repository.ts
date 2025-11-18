@@ -1,5 +1,15 @@
-import { readFromStorage, writeToStorage } from "@/lib/storage/localStorageClient";
-import { PaginatedTodoSchema, Result, Todo, TodoSchema, type AppError } from "@/types/todo";
+import {
+  readFromStorage,
+  writeToStorage,
+} from "@/lib/storage/localStorageClient";
+import { paginate } from "@/lib/utils/pagination";
+import {
+  PaginatedTodoSchema,
+  Result,
+  Todo,
+  TodoSchema,
+  type AppError,
+} from "@/types/todo";
 import { z } from "zod";
 
 const STORAGE_ARRAY_SCHEMA = z.array(TodoSchema);
@@ -18,11 +28,20 @@ async function getAllTodos(): Promise<Result<Todo[], AppError>> {
     }
     const decoded = STORAGE_ARRAY_SCHEMA.safeParse(raw);
     if (!decoded.success) {
-      return { type: "error", error: createError("DecodeError", "Failed to decode todos from storage") };
+      return {
+        type: "error",
+        error: createError(
+          "DecodeError",
+          "Failed to decode todos from storage",
+        ),
+      };
     }
     return { type: "success", data: decoded.data };
   } catch {
-    return { type: "error", error: createError("StorageError", "Failed to read from storage") };
+    return {
+      type: "error",
+      error: createError("StorageError", "Failed to read from storage"),
+    };
   }
 }
 
@@ -31,7 +50,10 @@ async function saveAllTodos(todos: Todo[]): Promise<Result<null, AppError>> {
     await writeToStorage(todos);
     return { type: "success", data: null };
   } catch {
-    return { type: "error", error: createError("StorageError", "Failed to write to storage") };
+    return {
+      type: "error",
+      error: createError("StorageError", "Failed to write to storage"),
+    };
   }
 }
 
@@ -73,20 +95,14 @@ export const todoRepository: TodoRepository = {
     }
     items = applyStatusFilter(items, status);
 
-    const total = items.length;
-    const start = (page - 1) * pageSize;
-    const pagedItems = items.slice(start, start + pageSize);
-
-    const paginated = {
-      items: pagedItems,
-      total,
-      page,
-      pageSize,
-    };
+    const paginated = paginate(items, { page, pageSize });
 
     const decoded = PaginatedTodoSchema.safeParse(paginated);
     if (!decoded.success) {
-      return { type: "error", error: createError("DecodeError", "Failed to decode paginated todos") };
+      return {
+        type: "error",
+        error: createError("DecodeError", "Failed to decode paginated todos"),
+      };
     }
 
     return { type: "success", data: decoded.data };
@@ -97,11 +113,17 @@ export const todoRepository: TodoRepository = {
     if (allResult.type === "error") return allResult;
     const todo = allResult.data.find((t) => t.id === id);
     if (!todo) {
-      return { type: "error", error: createError("NotFoundError", "Todo not found") };
+      return {
+        type: "error",
+        error: createError("NotFoundError", "Todo not found"),
+      };
     }
     const decoded = TodoSchema.safeParse(todo);
     if (!decoded.success) {
-      return { type: "error", error: createError("DecodeError", "Failed to decode todo") };
+      return {
+        type: "error",
+        error: createError("DecodeError", "Failed to decode todo"),
+      };
     }
     return { type: "success", data: decoded.data };
   },
@@ -127,7 +149,10 @@ export const todoRepository: TodoRepository = {
     if (allResult.type === "error") return allResult;
     const idx = allResult.data.findIndex((t) => t.id === id);
     if (idx === -1) {
-      return { type: "error", error: createError("NotFoundError", "Todo not found") };
+      return {
+        type: "error",
+        error: createError("NotFoundError", "Todo not found"),
+      };
     }
     const updated: Todo = { ...allResult.data[idx], ...patch };
     const todos = [...allResult.data];
@@ -146,5 +171,3 @@ export const todoRepository: TodoRepository = {
     return { type: "success", data: null };
   },
 };
-
-

@@ -17,7 +17,9 @@ export function TodoDetail({ id }: TodoDetailProps) {
   const { data, isLoading } = useTodoDetail(id);
 
   const content = match(data)
-    .with({ type: "success" }, ({ data: todo }) => <TodoDetailDisplay todo={todo} />)
+    .with({ type: "success" }, ({ data: todo }) => (
+      <TodoDetailDisplay todo={todo} />
+    ))
     .with({ type: "error" }, ({ error }) => (
       <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800">
         Failed to load todo: {error.message}
@@ -35,5 +37,3 @@ export function TodoDetail({ id }: TodoDetailProps) {
 
   return content;
 }
-
-

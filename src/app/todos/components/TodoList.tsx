@@ -17,7 +17,8 @@ export function TodoList() {
   const searchParams = useSearchParams();
 
   const page = Number(searchParams.get("page") ?? "1");
-  const status = (searchParams.get("status") as "all" | "active" | "completed") ?? "all";
+  const status =
+    (searchParams.get("status") as "all" | "active" | "completed") ?? "all";
   const q = searchParams.get("q") ?? "";
 
   const { data, isLoading, isFetching } = useListTodos({
@@ -27,7 +28,7 @@ export function TodoList() {
     q,
   });
 
-  return (isLoading ? (
+  return isLoading ? (
     <div className="flex flex-col gap-2">
       {Array.from({ length: 5 }).map((_, idx) => (
         <Skeleton key={idx} className="h-10 w-full" />
@@ -42,7 +43,9 @@ export function TodoList() {
         </div>
       ) : null}
       {match(data)
-        .with({ type: "success" }, ({ data }) => <TodoListDisplay paginatedTodo={data} />)
+        .with({ type: "success" }, ({ data }) => (
+          <TodoListDisplay paginatedTodo={data} />
+        ))
         .with({ type: "error" }, ({ error }) => (
           <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800">
             Failed to load todos: {error.message}
@@ -50,6 +53,5 @@ export function TodoList() {
         ))
         .otherwise(() => null)}
     </>
-  ));
+  );
 }
-

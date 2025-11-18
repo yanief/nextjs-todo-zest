@@ -36,5 +36,3 @@ export async function writeToStorage(value: StorageValue): Promise<void> {
     }, 0);
   });
 }
-
-

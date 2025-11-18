@@ -15,7 +15,7 @@ export function Input({ className, error, ...props }: InputProps) {
           "w-full rounded-md border px-3 py-2 text-sm outline-none transition-colors",
           "border-zinc-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100",
           error && "border-red-500 focus:border-red-500 focus:ring-red-100",
-          className
+          className,
         )}
         aria-invalid={!!error}
         {...props}
@@ -28,5 +28,3 @@ export function Input({ className, error, ...props }: InputProps) {
     </div>
   );
 }
-
-
