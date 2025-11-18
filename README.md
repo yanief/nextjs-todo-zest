@@ -33,10 +33,10 @@ Live demo URL: _<Placeholder URL>_
 - **Tailwind CSS**
 
 Optional extras implemented (bonus):
+
 - Optimistic mutations with rollback
 - Persisted React Query cache (sessionStorage)
 - MSW-powered integration tests (if applicable)
-- Playwright E2E test (optional)
 
 ---
 
@@ -134,6 +134,7 @@ vercel
 ---
 
 ## 📝 Tradeoffs & Decisions (Summary)
+
 - **Zod chosen** over io-ts due to simpler ergonomics for this scale.
 - **Repository pattern** improves testability and separation of concerns.
 - **React Query** chosen for caching, deduping, and async state management.
@@ -148,6 +149,7 @@ vercel
 ## 📬 Notes
 
 This project is intentionally scoped to demonstrate:
+
 - Type safety
 - Async state management
 - UI responsiveness

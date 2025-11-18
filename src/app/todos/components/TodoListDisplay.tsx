@@ -23,9 +23,7 @@ export const TodoListDisplay = ({
     return (
       <div className="flex flex-col items-center justify-center gap-2 py-10 text-center">
         <p className="text-sm text-zinc-500">No todos yet.</p>
-        <p className="text-xs text-zinc-400">
-          Create your first task
-        </p>
+        <p className="text-xs text-zinc-400">Create your first task</p>
       </div>
     );
   }

@@ -4,7 +4,7 @@
 
 This document defines the full testing strategy for the TODO application, including the scope, tools, conventions, and specific test cases for each layer.
 
-- - -
+---
 
 # 1. **Testing Philosophy**
 
@@ -20,45 +20,45 @@ Each test type focuses on a specific layer:
 
 We emphasize:
 
-* **Deterministic tests**
+- **Deterministic tests**
 
-* **Minimal mocks**
+- **Minimal mocks**
 
-* **Confidence over coverage numbers**
+- **Confidence over coverage numbers**
 
-* **Critical-path flows only** for E2E
+- **Critical-path flows only** for E2E
 
-- - -
+---
 
 # 2. **Tools & Setup**
 
 ### 2.1 Unit & Integration (Vitest + React Testing Library)
 
-* **Vitest** for test runner + assertions
+- **Vitest** for test runner + assertions
 
-* **React Testing Library** for component tests
+- **React Testing Library** for component tests
 
-* **MSW (Mock Service Worker)** for mocking the repository layer
+- **MSW (Mock Service Worker)** for mocking the repository layer
 
 ### 2.2 E2E (Playwright)
 
-* Cross-browser behavior
+- Cross-browser behavior
 
-* UI state verification
+- UI state verification
 
-* Form interactions
+- Form interactions
 
-* Network/Storage interactions through the UI layer
+- Network/Storage interactions through the UI layer
 
 ### 2.3 Additional Libraries
 
-* **Zod** for schema validation tests
+- **Zod** for schema validation tests
 
-* **ts-pattern** for result matching
+- **ts-pattern** for result matching
 
-* **Testing utils** (`renderWithQueryClient`, `createTestQueryClient`)
+- **Testing utils** (`renderWithQueryClient`, `createTestQueryClient`)
 
-- - -
+---
 
 # 3. **Unit Tests**
 
@@ -74,39 +74,39 @@ Test the following behaviors:
 
 #### 1. **getTodos**
 
-* Applies `page`, `status`, and `q` filters correctly
+- Applies `page`, `status`, and `q` filters correctly
 
-* Returns paginated structure
+- Returns paginated structure
 
-* Decodes data with Zod
+- Decodes data with Zod
 
-* Returns structured errors on invalid data
+- Returns structured errors on invalid data
 
 #### 2. **createTodo**
 
-* Generates unique IDs
+- Generates unique IDs
 
-* Adds item to storage
+- Adds item to storage
 
-* Returns validated todo
+- Returns validated todo
 
-* Returns error on invalid input
+- Returns error on invalid input
 
 #### 3. **updateTodo**
 
-* Updates only the specified fields
+- Updates only the specified fields
 
-* Returns error if item not found
+- Returns error if item not found
 
-* Maintains schema correctness
+- Maintains schema correctness
 
 #### 4. **deleteTodo**
 
-* Removes item from storage
+- Removes item from storage
 
-* Errors when deleting a missing item
+- Errors when deleting a missing item
 
-- - -
+---
 
 ### B. **Validation Schemas**
 
@@ -114,13 +114,13 @@ Files: `features/todos/schemas/*.ts`
 
 Test:
 
-* That valid data passes
+- That valid data passes
 
-* Invalid data fails
+- Invalid data fails
 
-* Type narrowing is correct
+- Type narrowing is correct
 
-- - -
+---
 
 ### C. **Utility Functions**
 
@@ -128,51 +128,50 @@ Files: `lib/utils/*.ts`
 
 Examples:
 
-* `applyFilters`
+- `applyFilters`
 
-* `paginate`
+- `paginate`
 
-* `simulateNetworkDelay`
+- `simulateNetworkDelay`
 
 Test:
 
-* Correct output given specific inputs
+- Correct output given specific inputs
 
-* Edge cases (empty, null, invalid ranges)
+- Edge cases (empty, null, invalid ranges)
 
-- - -
+---
 
 # 4. **Integration Tests**
 
 Integration tests verify:
 
-* Components
+- Components
 
-* React Query cache
+- React Query cache
 
-* Repository layer (mocked via MSW)
+- Repository layer (mocked via MSW)
 
-* User interactions
+- User interactions
 
-* URL searchParams behavior
+- URL searchParams behavior
 
 ## 4.1 Config
 
 Use:
 
-* **RTL**
+- **RTL**
 
-* **MSW** for intercepting the repository API
+- **MSW** for intercepting the repository API
 
-* **custom render** wrapper that provides:
+- **custom render** wrapper that provides:
+  - QueryClientProvider
 
-  * QueryClientProvider
+  - Router context
 
-  * Router context
+  - Zustand store provider (if needed)
 
-  * Zustand store provider (if needed)
-
-- - -
+---
 
 ## 4.2 Integration Test Cases
 
@@ -182,73 +181,73 @@ Tests:
 
 #### 1. **Initial Load**
 
-* Shows loading state
+- Shows loading state
 
-* Renders 10 items
+- Renders 10 items
 
-* Renders pagination controls
+- Renders pagination controls
 
 #### 2. **Pagination Behavior**
 
-* Clicking “Next Page” updates URL
+- Clicking “Next Page” updates URL
 
-* Keeps previous data during transition
+- Keeps previous data during transition
 
-* Correct items appear
+- Correct items appear
 
 #### 3. **Filtering**
 
-* Switching status filter updates results
+- Switching status filter updates results
 
-* Search query updates results
+- Search query updates results
 
-* URL reflects new params
+- URL reflects new params
 
 #### 4. **Error State**
 
-* Displays fallback when repository returns an error
+- Displays fallback when repository returns an error
 
-* Retry button re-fetches
+- Retry button re-fetches
 
-- - -
+---
 
 ### B. **Todo Detail Page (`/todo/[id]`)**
 
 #### 1. **Loads detail correctly**
 
-* Shows loading
+- Shows loading
 
-* Then todo fields
+- Then todo fields
 
 #### 2. **Edit Form**
 
-* Editing the title updates the todo
+- Editing the title updates the todo
 
-* Optimistic update applied
+- Optimistic update applied
 
-* Rolls back on error
+- Rolls back on error
 
 #### 3. **Delete Flow**
 
-* Shows confirm modal (if applicable)
+- Shows confirm modal (if applicable)
 
-* After delete, redirects to `/todo`
+- After delete, redirects to `/todo`
 
-* Invalidate query
+- Invalidate query
 
-- - -
+---
 
 ### C. **Create Todo Modal / Form**
 
-* Validates required fields
+- Validates required fields
 
-* Creates new todo
+- Creates new todo
 
-* Adds it to first page
+- Adds it to first page
 
-* Clears form
+- Clears form
 
-- - -
+---
 
 # 5. **E2E Tests (Playwright)**
 
@@ -260,75 +259,75 @@ E2E tests validate the **actual user experience** end-to-end.
 
 #### 1. **Create Todo**
 
-* Navigate to `/todo`
+- Navigate to `/todo`
 
-* Click “Add Todo”
+- Click “Add Todo”
 
-* Fill form
+- Fill form
 
-* Submit
+- Submit
 
-* See new todo in the list
+- See new todo in the list
 
 #### 2. **Paginate**
 
-* Navigate to page 2
+- Navigate to page 2
 
-* Items change
+- Items change
 
-* URL changes
+- URL changes
 
-* State persists after reload
+- State persists after reload
 
 #### 3. **Edit Todo**
 
-* Open detail page
+- Open detail page
 
-* Modify title
+- Modify title
 
-* Save
+- Save
 
-* Confirm new title on list + detail
+- Confirm new title on list + detail
 
 #### 4. **Delete Todo**
 
-* Delete from detail page
+- Delete from detail page
 
-* Confirm modal
+- Confirm modal
 
-* Redirect to `/todo`
+- Redirect to `/todo`
 
-* Item removed from list
+- Item removed from list
 
-- - -
+---
 
 ### 5.2 Additional E2E Scenarios
 
 #### **Filtering**
 
-* Filter by completed/active/all
+- Filter by completed/active/all
 
-* Search text
+- Search text
 
-* Combined with pagination
+- Combined with pagination
 
-* URL persists state
+- URL persists state
 
 #### **Error Recovery**
 
-* Simulate failing repository operation
+- Simulate failing repository operation
 
-* UI shows appropriate error
+- UI shows appropriate error
 
-* Retry works
+- Retry works
 
 #### **Mobile Layout Check**
 
-* Viewport set to mobile size
+- Viewport set to mobile size
 
-* Ensure layout adapts
+- Ensure layout adapts
 
-- - -
+---
 
 # 6. **Test Folder Structure**
 
@@ -348,7 +347,7 @@ tests/
     error-handling.spec.ts
 ```
 
-- - -
+---
 
 # 7. **CI Integration**
 

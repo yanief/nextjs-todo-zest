@@ -51,14 +51,13 @@ export function AddTodoForm() {
         </p>
       </div>
       <div>
-        <div className="mb-1 block text-xs font-medium">
-          &nbsp;
-        </div>
+        <div className="mb-1 block text-xs font-medium">&nbsp;</div>
         <Button
           type="submit"
           disabled={isSubmitting || createMutation.isPending}
         >
-          <PlusIcon className="h-[1rem]" />{createMutation.isPending ? "Adding..." : "Add"}
+          <PlusIcon className="h-[1rem]" />
+          {createMutation.isPending ? "Adding..." : "Add"}
         </Button>
       </div>
     </form>

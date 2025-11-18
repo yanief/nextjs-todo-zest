@@ -87,10 +87,12 @@ export function TodoDetailDisplay({ todo }: { todo: Todo }) {
         </p>
         <div className="mt-3 flex gap-2">
           <Button type="submit" disabled={isSubmitting || isUpdating}>
-            <SaveIcon className="h-[1rem]" />{isUpdating ? "Saving..." : "Save"}
+            <SaveIcon className="h-[1rem]" />
+            {isUpdating ? "Saving..." : "Save"}
           </Button>
           <Button type="button" variant="secondary" onClick={backToTodoList}>
-            <Undo2Icon className="h-[1rem]" />Back
+            <Undo2Icon className="h-[1rem]" />
+            Back
           </Button>
           <Button
             type="button"
@@ -98,7 +100,8 @@ export function TodoDetailDisplay({ todo }: { todo: Todo }) {
             className="ml-auto text-red-600 hover:bg-red-50"
             onClick={confirmDelete}
           >
-            <Trash2Icon className="h-[1rem]" />Delete
+            <Trash2Icon className="h-[1rem]" />
+            Delete
           </Button>
         </div>
       </form>
