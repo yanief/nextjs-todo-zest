@@ -1,12 +1,19 @@
 "use client";
+
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { useForm } from "react-hook-form";
-import { FormValues } from "./TodoList";
-import { useCreateTodoMutation } from "../hooks/todoMutations/useCreateTodo";
+import { useI18n } from "@/i18n/I18nProvider";
 import { PlusIcon } from "lucide-react";
+import clsx from "clsx";
+import { useForm } from "react-hook-form";
+import { useCreateTodoMutation } from "../hooks/todoMutations/useCreateTodo";
+
+interface FormValues {
+  title: string;
+}
 
 export function AddTodoForm() {
+  const { t, direction } = useI18n();
   const createMutation = useCreateTodoMutation();
 
   const {
@@ -26,38 +33,52 @@ export function AddTodoForm() {
     );
   };
 
+  const isRtl = direction === "rtl";
+
   return (
     <form
-      className="flex flex-col gap-2 sm:flex-row items-start"
+      className={clsx(
+        "flex flex-col gap-2 sm:flex-row items-start",
+        isRtl && "sm:flex-row-reverse",
+      )}
       onSubmit={handleSubmit(onSubmit)}
-      aria-label="Create todo form"
+      aria-label={t("todos.form.ariaLabel")}
     >
       <div className="flex-1">
         <label
-          className="mb-1 block text-xs font-medium text-zinc-600"
+          className="mb-1 block text-xs font-medium text-zinc-600 dark:text-slate-300"
           htmlFor="title"
         >
-          New Todo
+          {t("todos.form.label")}
         </label>
         <Input
           id="title"
-          placeholder="e.g. Buy groceries"
+          placeholder={t("todos.form.placeholder")}
           aria-describedby="title-help"
-          {...register("title", { required: "Title is required" })}
+          {...register("title", { required: t("todos.form.error") })}
           error={errors.title?.message}
         />
-        <p id="title-help" className="mt-1 text-[11px] text-zinc-400">
-          Press “Add” to create. Title cannot be empty.
+        <p
+          id="title-help"
+          className="mt-1 text-[11px] text-zinc-400 dark:text-slate-400"
+        >
+          {t("todos.form.helper")}
         </p>
       </div>
-      <div>
-        <div className="mb-1 block text-xs font-medium">&nbsp;</div>
+      <div className={clsx(isRtl && "self-start")}>
+        <div className="mb-1 block text-xs font-medium text-transparent select-none">
+          &nbsp;
+        </div>
         <Button
           type="submit"
           disabled={isSubmitting || createMutation.isPending}
         >
-          <PlusIcon className="h-[1rem]" />
-          {createMutation.isPending ? "Adding..." : "Add"}
+          <span className="flex items-center gap-2">
+            <PlusIcon className="h-[1rem]" />
+            {createMutation.isPending
+              ? t("common.aria.loading")
+              : t("common.buttons.add")}
+          </span>
         </Button>
       </div>
     </form>

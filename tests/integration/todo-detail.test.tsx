@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { TodoDetailDisplay } from "@/app/todos/[id]/components/TodoDetailDisplay";
-import { render } from "@testing-library/react";
+import { renderWithQueryClient } from "../utils/renderWithQueryClient";
 
 const push = vi.fn();
 const mutateUpdate = vi.fn();
@@ -34,7 +34,7 @@ describe("TodoDetailDisplay integration", () => {
   });
 
   it("submits updates with the latest title", async () => {
-    render(
+    renderWithQueryClient(
       <TodoDetailDisplay
         todo={{
           id: "1",

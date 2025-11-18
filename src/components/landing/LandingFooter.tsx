@@ -1,14 +1,21 @@
+"use client";
+
 import Link from "next/link";
 
-export function LandingFooter() {
+interface LandingFooterProps {
+  text: string;
+  repoLabel: string;
+}
+
+export function LandingFooter({ text, repoLabel }: LandingFooterProps) {
   return (
-    <footer className="text-center text-sm text-slate-500">
-      Built for the FE Hiring Case Study —{" "}
+    <footer className="text-center text-sm text-slate-500 dark:text-slate-400">
+      {text}{" "}
       <Link
         href="https://github.com/yanief/nextjs-todo-app-zest"
-        className="underline hover:text-slate-700"
+        className="underline hover:text-slate-700 dark:hover:text-slate-200"
       >
-        GitHub Repository
+        {repoLabel}
       </Link>
     </footer>
   );

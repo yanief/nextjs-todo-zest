@@ -6,10 +6,12 @@ import { todoRepository } from "@/repositories/todo.repository";
 import type { AppError, PaginatedTodo, Todo, Result } from "@/types/todo";
 import { useUIStore } from "@/stores/ui.store";
 import { optimisticUpdateList } from "./optimisticUpdateList";
+import { useI18n } from "@/i18n/I18nProvider";
 
 export function useCreateTodoMutation() {
   const queryClient = useQueryClient();
   const addToast = useUIStore((s) => s.addToast);
+  const { t } = useI18n();
 
   return useMutation({
     mutationFn: (input: { title: string }) => todoRepository.create(input),
@@ -47,10 +49,10 @@ export function useCreateTodoMutation() {
           queryClient.setQueryData(key, data);
         });
       }
-      addToast("Failed to create todo", "error");
+      addToast(t("toasts.createError"), "error");
     },
     onSuccess: () => {
-      addToast("Todo created", "success");
+      addToast(t("toasts.createSuccess"), "success");
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: todoKeys.all });

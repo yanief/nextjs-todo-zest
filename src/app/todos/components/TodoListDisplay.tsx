@@ -1,7 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/Button";
+import { useI18n } from "@/i18n/I18nProvider";
 import { PaginatedTodo } from "@/types/todo";
+import clsx from "clsx";
 import { useRouter, useSearchParams } from "next/navigation";
 import { TodoItem } from "./TodoItem";
 
@@ -12,6 +14,7 @@ export const TodoListDisplay = ({
 }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { t, direction } = useI18n();
 
   const changePage = (nextPage: number) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -22,8 +25,12 @@ export const TodoListDisplay = ({
   if (!paginatedTodo.items.length) {
     return (
       <div className="flex flex-col items-center justify-center gap-2 py-10 text-center">
-        <p className="text-sm text-zinc-500">No todos yet.</p>
-        <p className="text-xs text-zinc-400">Create your first task</p>
+        <p className="text-sm text-zinc-500 dark:text-slate-300">
+          {t("todos.list.emptyTitle")}
+        </p>
+        <p className="text-xs text-zinc-400 dark:text-slate-400">
+          {t("todos.list.emptyDescription")}
+        </p>
       </div>
     );
   }
@@ -40,18 +47,26 @@ export const TodoListDisplay = ({
           <TodoItem key={todo.id} todo={todo} />
         ))}
       </ul>
-      <div className="mt-4 flex items-center justify-between text-xs text-zinc-500">
+      <div className="mt-4 flex items-center justify-between text-xs text-zinc-500 dark:text-slate-300">
         <span>
-          Page {paginatedTodo.page} of {totalPages}
+          {t("todos.list.pagination", {
+            current: paginatedTodo.page,
+            total: totalPages,
+          })}
         </span>
-        <div className="flex gap-2">
+        <div
+          className={clsx(
+            "flex gap-2",
+            direction === "rtl" && "flex-row-reverse",
+          )}
+        >
           <Button
             type="button"
             variant="secondary"
             disabled={paginatedTodo.page <= 1}
             onClick={() => changePage(paginatedTodo.page - 1)}
           >
-            Previous
+            {t("common.buttons.previous")}
           </Button>
           <Button
             type="button"
@@ -59,7 +74,7 @@ export const TodoListDisplay = ({
             disabled={paginatedTodo.page >= totalPages}
             onClick={() => changePage(paginatedTodo.page + 1)}
           >
-            Next
+            {t("common.buttons.next")}
           </Button>
         </div>
       </div>

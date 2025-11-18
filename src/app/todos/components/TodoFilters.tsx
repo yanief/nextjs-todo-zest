@@ -1,7 +1,9 @@
 "use client";
 
+import { useI18n } from "@/i18n/I18nProvider";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
+import clsx from "clsx";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 
@@ -10,6 +12,7 @@ type StatusFilter = "all" | "active" | "completed";
 export function TodoFilters() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { t, direction } = useI18n();
 
   const status = (searchParams.get("status") as StatusFilter) ?? "all";
   const q = searchParams.get("q") ?? "";
@@ -25,44 +28,56 @@ export function TodoFilters() {
     [router, searchParams],
   );
 
+  const isRtl = direction === "rtl";
+
   return (
-    <div className="flex flex-col gap-3 sm:flex-row items-start">
+    <div
+      className={clsx(
+        "flex flex-col gap-3 sm:flex-row items-start",
+        isRtl && "sm:flex-row-reverse",
+      )}
+    >
       <div className="flex-1">
         <label
-          className="mb-1 block text-xs font-medium text-zinc-600"
+          className="mb-1 block text-xs font-medium text-zinc-600 dark:text-slate-300"
           htmlFor="search"
         >
-          Search
+          {t("todos.filters.searchLabel")}
         </label>
         <Input
           id="search"
-          placeholder="Search todos..."
+          placeholder={t("todos.filters.searchPlaceholder")}
           defaultValue={q}
           aria-describedby="search-help"
           onChange={(e) => updateParams({ q: e.target.value, page: 1 })}
         />
-        <p id="search-help" className="mt-1 text-[11px] text-zinc-400">
-          Filter by title. Updates results instantly.
+        <p
+          id="search-help"
+          className="mt-1 text-[11px] text-zinc-400 dark:text-slate-400"
+        >
+          {t("todos.filters.searchHelp")}
         </p>
       </div>
       <div className="w-full sm:w-40">
         <label
-          className="mb-1 block text-xs font-medium text-zinc-600"
+          className="mb-1 block text-xs font-medium text-zinc-600 dark:text-slate-300"
           htmlFor="status"
         >
-          Status
+          {t("todos.filters.statusLabel")}
         </label>
         <Select
           id="status"
           value={status}
-          aria-label="Filter todos by status"
+          aria-label={t("todos.filters.statusLabel")}
           onChange={(e) =>
             updateParams({ status: e.target.value as StatusFilter, page: 1 })
           }
         >
-          <option value="all">All</option>
-          <option value="active">Active</option>
-          <option value="completed">Completed</option>
+          <option value="all">{t("todos.filters.options.all")}</option>
+          <option value="active">{t("todos.filters.options.active")}</option>
+          <option value="completed">
+            {t("todos.filters.options.completed")}
+          </option>
         </Select>
       </div>
     </div>

@@ -1,17 +1,22 @@
+"use client";
+
 import { PageContainer } from "@/components/layout/PageContainer";
 import { Section } from "@/components/layout/Section";
+import { useI18n } from "@/i18n/I18nProvider";
+import { useParams } from "next/navigation";
 import { TodoDetail } from "./components/TodoDetail";
-import { use } from "react";
 
-interface TodoDetailPageProps {
-  params: Promise<{ id: string }>;
-}
+export default function TodoDetailPage() {
+  const params = useParams<{ id: string }>();
+  const { t } = useI18n();
+  const idParam = params?.id;
+  const id = Array.isArray(idParam) ? idParam[0] : idParam;
 
-export default function TodoDetailPage({ params }: TodoDetailPageProps) {
-  const { id } = use(params);
+  if (!id) return null;
+
   return (
     <PageContainer>
-      <Section title="Todo Details">
+      <Section title={t("todos.detailPage.sectionTitle")}>
         <TodoDetail id={id} />
       </Section>
     </PageContainer>

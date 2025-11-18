@@ -6,10 +6,12 @@ import { todoRepository } from "@/repositories/todo.repository";
 import type { AppError, PaginatedTodo, Todo, Result } from "@/types/todo";
 import { useUIStore } from "@/stores/ui.store";
 import { optimisticUpdateList } from "./optimisticUpdateList";
+import { useI18n } from "@/i18n/I18nProvider";
 
 export function useUpdateTodoMutation() {
   const queryClient = useQueryClient();
   const addToast = useUIStore((s) => s.addToast);
+  const { t } = useI18n();
 
   return useMutation({
     mutationFn: ({ id, patch }: { id: string; patch: Partial<Todo> }) =>
@@ -57,10 +59,10 @@ export function useUpdateTodoMutation() {
           context.previousDetail,
         );
       }
-      addToast("Failed to update todo", "error");
+      addToast(t("toasts.updateError"), "error");
     },
     onSuccess: () => {
-      addToast("Todo updated", "success");
+      addToast(t("toasts.updateSuccess"), "success");
     },
     onSettled: (_data, _error, variables) => {
       queryClient.invalidateQueries({ queryKey: todoKeys.all });

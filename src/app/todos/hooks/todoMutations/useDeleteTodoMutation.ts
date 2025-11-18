@@ -6,10 +6,12 @@ import { todoRepository } from "@/repositories/todo.repository";
 import type { AppError, PaginatedTodo, Todo, Result } from "@/types/todo";
 import { useUIStore } from "@/stores/ui.store";
 import { optimisticUpdateList } from "./optimisticUpdateList";
+import { useI18n } from "@/i18n/I18nProvider";
 
 export function useDeleteTodoMutation() {
   const queryClient = useQueryClient();
   const addToast = useUIStore((s) => s.addToast);
+  const { t } = useI18n();
 
   return useMutation({
     mutationFn: (id: string) => todoRepository.delete(id),
@@ -50,10 +52,10 @@ export function useDeleteTodoMutation() {
           context.previousDetail,
         );
       }
-      addToast("Failed to delete todo", "error");
+      addToast(t("toasts.deleteError"), "error");
     },
     onSuccess: () => {
-      addToast("Todo deleted", "success");
+      addToast(t("toasts.deleteSuccess"), "success");
     },
     onSettled: (_data, _error, id) => {
       queryClient.invalidateQueries({ queryKey: todoKeys.all });

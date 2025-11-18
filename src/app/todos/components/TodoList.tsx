@@ -1,5 +1,6 @@
 "use client";
 
+import { useI18n } from "@/i18n/I18nProvider";
 import { useSearchParams } from "next/navigation";
 import { match } from "ts-pattern";
 import { Spinner } from "@/components/ui/Spinner";
@@ -9,12 +10,9 @@ import { TodoListDisplay } from "./TodoListDisplay";
 
 const PAGE_SIZE = 10;
 
-export interface FormValues {
-  title: string;
-}
-
 export function TodoList() {
   const searchParams = useSearchParams();
+  const { t } = useI18n();
 
   const page = Number(searchParams.get("page") ?? "1");
   const status =
@@ -37,9 +35,9 @@ export function TodoList() {
   ) : (
     <>
       {isFetching ? (
-        <div className="mb-2 flex items-center gap-2 text-xs text-zinc-400">
+        <div className="mb-2 flex items-center gap-2 text-xs text-zinc-400 dark:text-slate-400">
           <Spinner />
-          <span>Updating…</span>
+          <span>{t("common.aria.updating")}</span>
         </div>
       ) : null}
       {match(data)
@@ -47,8 +45,8 @@ export function TodoList() {
           <TodoListDisplay paginatedTodo={data} />
         ))
         .with({ type: "error" }, ({ error }) => (
-          <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800">
-            Failed to load todos: {error.message}
+          <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800 dark:border-red-400/50 dark:bg-red-950/40 dark:text-red-200">
+            {t("todos.errors.list")}: {error.message}
           </div>
         ))
         .otherwise(() => null)}

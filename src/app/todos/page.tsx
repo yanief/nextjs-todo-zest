@@ -1,5 +1,8 @@
+"use client";
+
 import { PageContainer } from "@/components/layout/PageContainer";
 import { Section } from "@/components/layout/Section";
+import { useI18n } from "@/i18n/I18nProvider";
 import { TodoList } from "./components/TodoList";
 import { TodoFilters } from "./components/TodoFilters";
 import { AddTodoForm } from "./components/AddTodoForm";
@@ -7,13 +10,15 @@ import { AddTodoForm } from "./components/AddTodoForm";
 export const dynamic = "force-dynamic";
 
 export default function TodosPage() {
+  const { t } = useI18n();
   return (
     <PageContainer>
       <header className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold text-zinc-900">Todos</h1>
-        <p className="text-sm text-zinc-500">
-          Create, filter, and manage your tasks. Pagination is shareable via the
-          URL.
+        <h1 className="text-2xl font-semibold text-zinc-900 dark:text-white">
+          {t("todos.page.title")}
+        </h1>
+        <p className="text-sm text-zinc-500 dark:text-slate-300">
+          {t("todos.page.description")}
         </p>
       </header>
 
@@ -21,7 +26,7 @@ export default function TodosPage() {
         <TodoFilters />
       </Section>
 
-      <Section title="Your Todos">
+      <Section title={t("todos.page.sectionTitle")}>
         <div className="flex flex-col gap-4">
           <AddTodoForm />
           <TodoList />
