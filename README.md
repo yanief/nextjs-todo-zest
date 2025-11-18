@@ -3,7 +3,7 @@
 The app uses **Next.js App Router**, **React Query**, and a simulated async API backed by `localStorage`.  
 All CRUD operations, pagination, filtering, and detail views behave as if interacting with a remote server.
 
-Live demo URL: _<Placeholder URL>_
+Live demo URL: https://nextjs-todo-app.nvcn.xyz
 
 ---
 
@@ -36,7 +36,7 @@ Optional extras implemented (bonus):
 
 - Optimistic mutations with rollback
 - Persisted React Query cache (sessionStorage)
-- MSW-powered integration tests (if applicable)
+- MSW-powered integration tests
 
 ---
 
@@ -121,18 +121,6 @@ npm start
 
 ---
 
-## 🌐 Deployment
-
-Recommended: Vercel
-
-Deploy:
-
-```sh
-vercel
-```
-
----
-
 ## 📝 Tradeoffs & Decisions (Summary)
 
 - **Zod chosen** over io-ts due to simpler ergonomics for this scale.
@@ -157,4 +145,4 @@ This project is intentionally scoped to demonstrate:
 - Architectural reasoning
 - Correct use of the given tech stack
 
-Please see `tech-decisions.md` for a concise list of architectural decisions.
+Please see `docs/tech-decisions.md` for a concise list of architectural decisions.

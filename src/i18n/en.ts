@@ -29,7 +29,7 @@ export const en = {
   },
   landing: {
     intro: [
-      "Built as a front-end hiring case study, this project showcases how to pair the Next.js App Router with a resilient client-side data layer powered by React Query, Zod validation, and ts-pattern result handling.",
+      "Built as a front-end case study, this project showcases how to pair the Next.js App Router with a resilient client-side data layer powered by React Query, Zod validation, and ts-pattern result handling.",
       "The TODO experience mirrors a production-grade workflow with optimistic updates, persistent cache, and shareable filters through URL parameters.",
     ],
     cards: {
@@ -63,7 +63,7 @@ export const en = {
     },
     cta: "Open TODO App",
     footer: {
-      text: "Built for the FE Hiring Case Study — ",
+      text: "Built for the FE Case Study — ",
       repo: "GitHub Repository",
     },
   },

@@ -14,7 +14,7 @@ export function GlobalControls() {
 
   return (
     <div
-      className="fixed bottom-4 z-50 flex flex-col gap-3 rounded-xl border border-slate-200 bg-white/90 p-3 shadow-lg backdrop-blur dark:border-slate-700 dark:bg-slate-900/90"
+      className="fixed bottom-4 z-50 flex flex-row gap-3 rounded-xl border border-slate-200 bg-white/90 p-3 shadow-lg backdrop-blur dark:border-slate-700 dark:bg-slate-900/90"
       style={positionStyle}
     >
       <div className="flex flex-col gap-1 text-xs">
@@ -23,6 +23,7 @@ export function GlobalControls() {
         </span>
         <ThemeToggle />
       </div>
+      <div className="inline-block w-0.5 self-stretch bg-slate-200 dark:bg-slate-700"></div>
       <LanguageSwitcher />
     </div>
   );

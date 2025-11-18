@@ -8,7 +8,7 @@ export function LanguageSwitcher() {
 
   return (
     <div className="flex flex-col gap-1 text-xs">
-      <span className="font-medium text-slate-600 dark:text-slate-300">
+      <span className="font-medium text-center text-slate-600 dark:text-slate-300">
         {t("controls.languageLabel")}
       </span>
       <Select
