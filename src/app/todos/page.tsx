@@ -2,6 +2,7 @@ import { PageContainer } from "@/components/layout/PageContainer";
 import { Section } from "@/components/layout/Section";
 import { TodoList } from "./components/TodoList";
 import { TodoFilters } from "./components/TodoFilters";
+import { AddTodoForm } from "./components/AddTodoForm";
 
 export const dynamic = "force-dynamic";
 
@@ -20,7 +21,10 @@ export default function TodosPage() {
       </Section>
 
       <Section title="Your Todos">
-        <TodoList />
+        <div className="flex flex-col gap-4">
+          <AddTodoForm />
+          <TodoList />
+        </div>
       </Section>
     </PageContainer>
   );

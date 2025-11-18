@@ -1,16 +1,21 @@
 "use client";
 
+import clsx from "clsx";
 import type { ReactNode } from "react";
 
 interface SectionProps {
   title?: string;
   description?: string;
   children: ReactNode;
+  className?: string;
 }
 
-export function Section({ title, description, children }: SectionProps) {
+export function Section({ title, description, children, className }: SectionProps) {
   return (
-    <section className="rounded-lg bg-white p-4 shadow-sm">
+    <section className={clsx(
+      "rounded-lg bg-white p-4 shadow-sm",
+      className,
+    )}>
       {title ? (
         <header className="mb-3">
           <h2 className="text-base font-semibold text-zinc-900">{title}</h2>

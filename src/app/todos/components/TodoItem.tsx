@@ -3,8 +3,9 @@
 import Link from "next/link";
 import type { Todo } from "@/types/todo";
 import { Button } from "@/components/ui/Button";
-import { useUpdateTodoMutation, useDeleteTodoMutation } from "../hooks/useTodoMutations";
 import { useUIStore } from "@/stores/ui.store";
+import { useUpdateTodoMutation } from "../hooks/todoMutations/useUpdateTodoMutation";
+import { useDeleteTodoMutation } from "../hooks/todoMutations/useDeleteTodoMutation";
 
 interface TodoItemProps {
   todo: Todo;
