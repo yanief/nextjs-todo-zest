@@ -26,7 +26,7 @@ export function TodoFilters() {
   );
 
   return (
-    <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+    <div className="flex flex-col gap-3 sm:flex-row items-start">
       <div className="flex-1">
         <label
           className="mb-1 block text-xs font-medium text-zinc-600"

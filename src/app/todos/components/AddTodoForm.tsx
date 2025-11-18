@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/Input";
 import { useForm } from "react-hook-form";
 import { FormValues } from "./TodoList";
 import { useCreateTodoMutation } from "../hooks/todoMutations/useCreateTodo";
+import { PlusIcon } from "lucide-react";
 
 export function AddTodoForm() {
   const createMutation = useCreateTodoMutation();
@@ -27,7 +28,7 @@ export function AddTodoForm() {
 
   return (
     <form
-      className="flex flex-col gap-2 sm:flex-row"
+      className="flex flex-col gap-2 sm:flex-row items-start"
       onSubmit={handleSubmit(onSubmit)}
       aria-label="Create todo form"
     >
@@ -49,12 +50,15 @@ export function AddTodoForm() {
           Press “Add” to create. Title cannot be empty.
         </p>
       </div>
-      <div className="pt-5 sm:pt-7">
+      <div>
+        <div className="mb-1 block text-xs font-medium">
+          &nbsp;
+        </div>
         <Button
           type="submit"
           disabled={isSubmitting || createMutation.isPending}
         >
-          {createMutation.isPending ? "Adding..." : "Add"}
+          <PlusIcon className="h-[1rem]" />{createMutation.isPending ? "Adding..." : "Add"}
         </Button>
       </div>
     </form>

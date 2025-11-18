@@ -24,7 +24,7 @@ export const TodoListDisplay = ({
       <div className="flex flex-col items-center justify-center gap-2 py-10 text-center">
         <p className="text-sm text-zinc-500">No todos yet.</p>
         <p className="text-xs text-zinc-400">
-          Use the form above to create your first task.
+          Create your first task
         </p>
       </div>
     );

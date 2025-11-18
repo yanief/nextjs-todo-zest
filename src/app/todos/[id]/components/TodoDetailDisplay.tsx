@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { useUpdateTodoMutation } from "../../hooks/todoMutations/useUpdateTodoMutation";
 import { useDeleteTodoMutation } from "../../hooks/todoMutations/useDeleteTodoMutation";
 import { FormValues } from "./TodoDetail";
+import { SaveIcon, Trash2Icon, Undo2Icon } from "lucide-react";
 
 const useTodoDetailDisplay = () => {
   const updateMutation = useUpdateTodoMutation();
@@ -86,10 +87,10 @@ export function TodoDetailDisplay({ todo }: { todo: Todo }) {
         </p>
         <div className="mt-3 flex gap-2">
           <Button type="submit" disabled={isSubmitting || isUpdating}>
-            {isUpdating ? "Saving..." : "Save"}
+            <SaveIcon className="h-[1rem]" />{isUpdating ? "Saving..." : "Save"}
           </Button>
           <Button type="button" variant="secondary" onClick={backToTodoList}>
-            Back
+            <Undo2Icon className="h-[1rem]" />Back
           </Button>
           <Button
             type="button"
@@ -97,7 +98,7 @@ export function TodoDetailDisplay({ todo }: { todo: Todo }) {
             className="ml-auto text-red-600 hover:bg-red-50"
             onClick={confirmDelete}
           >
-            Delete
+            <Trash2Icon className="h-[1rem]" />Delete
           </Button>
         </div>
       </form>

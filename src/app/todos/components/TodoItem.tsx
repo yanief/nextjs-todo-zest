@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { useUIStore } from "@/stores/ui.store";
 import { useUpdateTodoMutation } from "../hooks/todoMutations/useUpdateTodoMutation";
 import { useDeleteTodoMutation } from "../hooks/todoMutations/useDeleteTodoMutation";
+import { Trash2Icon } from "lucide-react";
 
 interface TodoItemProps {
   todo: Todo;
@@ -59,7 +60,7 @@ export function TodoItem({ todo }: TodoItemProps) {
           className="text-xs text-red-600 hover:bg-red-50"
           onClick={confirmDelete}
         >
-          Delete
+          <Trash2Icon className="h-[1rem]" /> Delete
         </Button>
       </div>
     </li>

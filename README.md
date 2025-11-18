@@ -1,36 +1,158 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js TODO App
 
-## Getting Started
+The app uses **Next.js App Router**, **React Query**, and a simulated async API backed by `localStorage`.  
+All CRUD operations, pagination, filtering, and detail views behave as if interacting with a remote server.
 
-First, run the development server:
+Live demo URL: _<Placeholder URL>_
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🚀 Features
+
+- CRUD Todos (Create, Read, Update, Delete)
+- Paginated list (10/page) with search + status filters
+- Detail page with edit/delete
+- URL-based pagination and filters (`?page=1&status=active&q=homework`)
+- Optimistic updates (toggle, edit, delete)
+- Global UI state with Zustand (toasts)
+- Runtime validation with Zod
+- Pattern matching with ts-pattern
+- Responsive UI using Tailwind CSS
+- React Query caching, error handling, and loading states
+
+---
+
+## 🧱 Tech Stack
+
+- **Next.js App Router**
+- **@tanstack/react-query**
+- **Zustand** (UI state)
+- **Zod** (runtime validation)
+- **ts-pattern**
+- **react-hook-form**
+- **Tailwind CSS**
+
+Optional extras implemented (bonus):
+- Optimistic mutations with rollback
+- Persisted React Query cache (sessionStorage)
+- MSW-powered integration tests (if applicable)
+- Playwright E2E test (optional)
+
+---
+
+## 📂 Project Structure
+
+```
+src/
+  app/
+    todos/
+      page.tsx
+      [id]/
+        page.tsx
+  features/
+    todos/
+      components/
+      hooks/
+      api/
+      store/
+      schemas/
+  lib/
+    utils/
+    zod/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Feature-first organization + a clean data layer enables scalability and clarity.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📡 Data Layer
 
-## Learn More
+All components interact with a **repository layer**, not localStorage directly.
 
-To learn more about Next.js, take a look at the following resources:
+Repository responsibilities:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Simulate async network latency
+- Zod validation on every read
+- Structured error responses
+- React Query integration
+- Query-key composition with filters/pagination
+- Optimistic updates & rollback
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🧪 Testing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Unit tests** (repository layer)
+- **Integration tests** (React Query + components)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Run tests:
+
+```sh
+npm test
+```
+
+## ▶️ Getting Started
+
+### Install dependencies
+
+```sh
+npm install
+```
+
+### Run dev server
+
+```sh
+npm run dev
+```
+
+App runs at `http://localhost:3000`
+
+### Build
+
+```sh
+npm run build
+```
+
+### Run production build
+
+```sh
+npm start
+```
+
+---
+
+## 🌐 Deployment
+
+Recommended: Vercel
+
+Deploy:
+
+```sh
+vercel
+```
+
+---
+
+## 📝 Tradeoffs & Decisions (Summary)
+- **Zod chosen** over io-ts due to simpler ergonomics for this scale.
+- **Repository pattern** improves testability and separation of concerns.
+- **React Query** chosen for caching, deduping, and async state management.
+- **Zustand** used only for UI state—domain data stays in React Query.
+- **ts-pattern** improves safety and readability in branching logic.
+- **Feature-first structure** scales better for real-world apps.
+- **LocalStorage async wrapper** keeps components decoupled from the storage layer.
+- **Optimistic updates** improve perceived performance; rollback preserves correctness.
+
+---
+
+## 📬 Notes
+
+This project is intentionally scoped to demonstrate:
+- Type safety
+- Async state management
+- UI responsiveness
+- Error handling
+- Architectural reasoning
+- Correct use of the given tech stack
+
+Please see `tech-decisions.md` for a concise list of architectural decisions.
