@@ -7,7 +7,9 @@ import { useParams } from "next/navigation";
 import { TodoDetail } from "./components/TodoDetail";
 
 export default function TodoDetailPage() {
-  const params = useParams<{ id: string }>();
+  const params = useParams<{
+    id: string;
+  }>();
   const { t } = useI18n();
   const idParam = params?.id;
   const id = Array.isArray(idParam) ? idParam[0] : idParam;
@@ -16,7 +18,11 @@ export default function TodoDetailPage() {
 
   return (
     <PageContainer>
-      <Section title={t("todos.detailPage.sectionTitle")}>
+      <Section
+        title={t("Todo Details", {
+          key: "todos.detailPage.sectionTitle",
+        })}
+      >
         <TodoDetail id={id} />
       </Section>
     </PageContainer>

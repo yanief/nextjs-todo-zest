@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useI18n } from "@/i18n/I18nProvider";
@@ -61,10 +60,18 @@ export function TodoDetailDisplay({ todo }: { todo: Todo }) {
 
   const confirmDelete = () => {
     openModal({
-      title: t("todos.detail.deleteTitle"),
-      description: t("todos.detail.deleteDescription"),
-      confirmLabel: t("common.buttons.delete"),
-      cancelLabel: t("common.buttons.cancel"),
+      title: t("Delete todo?", {
+        key: "todos.detail.deleteTitle",
+      }),
+      description: t("This action cannot be undone.", {
+        key: "todos.detail.deleteDescription",
+      }),
+      confirmLabel: t("Delete", {
+        key: "common.buttons.delete",
+      }),
+      cancelLabel: t("Cancel", {
+        key: "common.buttons.cancel",
+      }),
       onConfirm: () => deleteTodo(todo),
     });
   };
@@ -76,34 +83,52 @@ export function TodoDetailDisplay({ todo }: { todo: Todo }) {
       <form
         className="flex flex-col gap-2"
         onSubmit={handleSubmit(onSubmit)}
-        aria-label={t("todos.detail.titleLabel")}
+        aria-label={t("Title", {
+          key: "todos.detail.titleLabel",
+        })}
       >
         <label
           className="mb-1 block text-xs font-medium text-zinc-600 dark:text-slate-300"
           htmlFor="title"
         >
-          {t("todos.detail.titleLabel")}
+          {t("Title", {
+            key: "todos.detail.titleLabel",
+          })}
         </label>
         <Input
           id="title"
           aria-describedby="title-help"
-          {...register("title", { required: t("todos.form.error") })}
+          {...register("title", {
+            required: t("Title is required", {
+              key: "todos.form.error",
+            }),
+          })}
           error={errors.title?.message}
         />
         <p
           id="title-help"
           className="mt-1 text-[11px] text-zinc-400 dark:text-slate-400"
         >
-          {t("todos.detail.helper")}
+          {t("Update the title and click save.", {
+            key: "todos.detail.helper",
+          })}
         </p>
         <div className={clsx("mt-3 flex gap-2", isRtl && "flex-row-reverse")}>
           <Button type="submit" disabled={isSubmitting || isUpdating}>
             <SaveIcon className="h-[1rem]" />
-            {isUpdating ? t("common.aria.loading") : t("common.buttons.save")}
+            {isUpdating
+              ? t("Loading", {
+                  key: "common.aria.loading",
+                })
+              : t("Save", {
+                  key: "common.buttons.save",
+                })}
           </Button>
           <Button type="button" variant="secondary" onClick={backToTodoList}>
             <Undo2Icon className="h-[1rem]" />
-            {t("common.buttons.back")}
+            {t("Back", {
+              key: "common.buttons.back",
+            })}
           </Button>
           <Button
             type="button"
@@ -114,7 +139,9 @@ export function TodoDetailDisplay({ todo }: { todo: Todo }) {
             onClick={confirmDelete}
           >
             <Trash2Icon className="h-[1rem]" />
-            {t("common.buttons.delete")}
+            {t("Delete", {
+              key: "common.buttons.delete",
+            })}
           </Button>
         </div>
       </form>

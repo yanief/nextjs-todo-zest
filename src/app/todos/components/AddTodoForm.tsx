@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useI18n } from "@/i18n/I18nProvider";
@@ -42,27 +41,39 @@ export function AddTodoForm() {
         isRtl && "sm:flex-row-reverse",
       )}
       onSubmit={handleSubmit(onSubmit)}
-      aria-label={t("todos.form.ariaLabel")}
+      aria-label={t("Create todo form", {
+        key: "todos.form.ariaLabel",
+      })}
     >
       <div className="flex-1">
         <label
           className="mb-1 block text-xs font-medium text-zinc-600 dark:text-slate-300"
           htmlFor="title"
         >
-          {t("todos.form.label")}
+          {t("New Todo", {
+            key: "todos.form.label",
+          })}
         </label>
         <Input
           id="title"
-          placeholder={t("todos.form.placeholder")}
+          placeholder={t("e.g. Buy groceries", {
+            key: "todos.form.placeholder",
+          })}
           aria-describedby="title-help"
-          {...register("title", { required: t("todos.form.error") })}
+          {...register("title", {
+            required: t("Title is required", {
+              key: "todos.form.error",
+            }),
+          })}
           error={errors.title?.message}
         />
         <p
           id="title-help"
           className="mt-1 text-[11px] text-zinc-400 dark:text-slate-400"
         >
-          {t("todos.form.helper")}
+          {t("Press \u201CAdd\u201D to create. Title cannot be empty.", {
+            key: "todos.form.helper",
+          })}
         </p>
       </div>
       <div className={clsx(isRtl && "self-start")}>
@@ -76,8 +87,12 @@ export function AddTodoForm() {
           <span className="flex items-center gap-2">
             <PlusIcon className="h-[1rem]" />
             {createMutation.isPending
-              ? t("common.aria.loading")
-              : t("common.buttons.add")}
+              ? t("Loading", {
+                  key: "common.aria.loading",
+                })
+              : t("Add", {
+                  key: "common.buttons.add",
+                })}
           </span>
         </Button>
       </div>

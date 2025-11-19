@@ -12,14 +12,16 @@ export function GlobalControls() {
       ? { left: "1rem", right: "auto" }
       : { right: "1rem", left: "auto" };
 
-  return (
+      return (
     <div
       className="fixed bottom-4 z-50 flex flex-row gap-3 rounded-xl border border-slate-200 bg-white/90 p-3 shadow-lg backdrop-blur dark:border-slate-700 dark:bg-slate-900/90"
       style={positionStyle}
     >
       <div className="flex flex-col gap-1 text-xs">
         <span className="font-medium text-slate-600 dark:text-slate-300">
-          {t("controls.themeLabel")}
+          {t("Theme", {
+            key: "controls.themeLabel",
+          })}
         </span>
         <ThemeToggle />
       </div>

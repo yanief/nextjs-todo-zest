@@ -1,5 +1,4 @@
 "use client";
-
 import {
   createContext,
   useCallback,
@@ -11,34 +10,46 @@ import {
 } from "react";
 import { ar } from "./ar";
 import { en, type Messages } from "./en";
-
 const dictionaries = {
   en,
   ar,
 };
-
 export type Locale = keyof typeof dictionaries;
-
 export interface MessageObject {
   [key: string]: MessageValue;
 }
-
 export type MessageValue = string | string[] | MessageObject;
-
 interface I18nContextValue {
   locale: Locale;
   direction: "ltr" | "rtl";
-  t: (key: string, values?: Record<string, string | number>) => string;
-  tList: (key: string, values?: Record<string, string | number>) => string[];
+  t: (
+    defaultTranslation: string,
+    {
+      key,
+      values,
+    }: {
+      key: string;
+      values?: Record<string, string | number>;
+    },
+  ) => string;
+  tList: (
+    defaultTranslations: string[],
+    {
+      key,
+      values,
+    }: {
+      key: string;
+      values?: Record<string, string | number>;
+    },
+  ) => string[];
   setLocale: (locale: Locale) => void;
 }
-
 const I18nContext = createContext<I18nContextValue | undefined>(undefined);
-
 const STORAGE_KEY = "todo-app-locale";
-
 function getTranslation(
-  dictionary: { [key: string]: string | string[] },
+  dictionary: {
+    [key: string]: string | string[];
+  },
   key: string,
 ) {
   if (key in dictionary) {
@@ -46,7 +57,6 @@ function getTranslation(
   }
   return undefined;
 }
-
 function formatMessage(
   message: string,
   values?: Record<string, string | number>,
@@ -57,7 +67,6 @@ function formatMessage(
     return String(values[key]);
   });
 }
-
 export function I18nProvider({
   children,
   initialLocale,
@@ -66,7 +75,6 @@ export function I18nProvider({
   initialLocale: Locale;
 }) {
   const [locale, setLocale] = useState<Locale>(initialLocale);
-
   useEffect(() => {
     if (typeof window === "undefined") return;
     const stored = window.localStorage.getItem(STORAGE_KEY) as Locale | null;
@@ -76,7 +84,6 @@ export function I18nProvider({
       setLocale(stored);
     }
   }, []);
-
   useEffect(() => {
     if (typeof window === "undefined") return;
     window.localStorage.setItem(STORAGE_KEY, locale);
@@ -85,31 +92,46 @@ export function I18nProvider({
     document.documentElement.dir = dir;
     document.cookie = `locale=${locale}; path=/; max-age=31536000`;
   }, [locale]);
-
   const t = useCallback(
-    (key: string, values?: Record<string, string | number>) => {
+    (
+      defaultTranslation: string,
+      {
+        key,
+        values,
+      }: {
+        key: string;
+        values?: Record<string, string | number>;
+      },
+    ) => {
       const dictionary: Messages = dictionaries[locale];
       const raw = getTranslation(dictionary, key);
       if (typeof raw === "string") {
         return formatMessage(raw, values);
       }
-      return key;
+      return defaultTranslation;
     },
     [locale],
   );
-
   const tList = useCallback(
-    (key: string, values?: Record<string, string | number>) => {
+    (
+      defaultTranslations: string[],
+      {
+        key,
+        values,
+      }: {
+        key: string;
+        values?: Record<string, string | number>;
+      },
+    ) => {
       const dictionary: Messages = dictionaries[locale];
       const raw = getTranslation(dictionary, key);
       if (Array.isArray(raw)) {
         return raw.map((item) => formatMessage(item, values));
       }
-      return [];
+      return defaultTranslations;
     },
     [locale],
   );
-
   const value = useMemo<I18nContextValue>(
     () => ({
       locale,
@@ -120,10 +142,8 @@ export function I18nProvider({
     }),
     [locale, t, tList],
   );
-
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }
-
 export function useI18n() {
   const context = useContext(I18nContext);
   if (!context) {

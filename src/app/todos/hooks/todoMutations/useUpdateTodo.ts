@@ -59,10 +59,20 @@ export function useUpdateTodo() {
           context.previousDetail,
         );
       }
-      addToast(t("toasts.updateError"), "error");
+      addToast(
+        t("Failed to update todo", {
+          key: "toasts.updateError",
+        }),
+        "error",
+      );
     },
     onSuccess: () => {
-      addToast(t("toasts.updateSuccess"), "success");
+      addToast(
+        t("Todo updated", {
+          key: "toasts.updateSuccess",
+        }),
+        "success",
+      );
     },
     onSettled: (_data, _error, variables) => {
       queryClient.invalidateQueries({ queryKey: todoKeys.all });

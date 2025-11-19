@@ -15,10 +15,17 @@ export default function TodosPage() {
     <PageContainer>
       <header className="flex flex-col gap-1">
         <h1 className="text-2xl font-semibold text-zinc-900 dark:text-white">
-          {t("todos.page.title")}
+          {t("Todos", {
+            key: "todos.page.title",
+          })}
         </h1>
         <p className="text-sm text-zinc-500 dark:text-slate-300">
-          {t("todos.page.description")}
+          {t(
+            "Create, filter, and manage your tasks. Pagination is shareable via the URL.",
+            {
+              key: "todos.page.description",
+            },
+          )}
         </p>
       </header>
 
@@ -26,7 +33,11 @@ export default function TodosPage() {
         <TodoFilters />
       </Section>
 
-      <Section title={t("todos.page.sectionTitle")}>
+      <Section
+        title={t("Your Todos", {
+          key: "todos.page.sectionTitle",
+        })}
+      >
         <div className="flex flex-col gap-4">
           <AddTodoForm />
           <TodoList />

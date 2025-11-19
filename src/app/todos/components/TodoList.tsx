@@ -1,5 +1,4 @@
 "use client";
-
 import { useI18n } from "@/i18n/I18nProvider";
 import { useSearchParams } from "next/navigation";
 import { match } from "ts-pattern";
@@ -37,7 +36,11 @@ export function TodoList() {
       {isFetching ? (
         <div className="mb-2 flex items-center gap-2 text-xs text-zinc-400 dark:text-slate-400">
           <Spinner />
-          <span>{t("common.aria.updating")}</span>
+          <span>
+            {t("Updating\u2026", {
+              key: "common.aria.updating",
+            })}
+          </span>
         </div>
       ) : null}
       {match(data)
@@ -46,7 +49,10 @@ export function TodoList() {
         ))
         .with({ type: "error" }, ({ error }) => (
           <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800 dark:border-red-400/50 dark:bg-red-950/40 dark:text-red-200">
-            {t("todos.errors.list")}: {error.message}
+            {t("Failed to load todos", {
+              key: "todos.errors.list",
+            })}
+            : {error.message}
           </div>
         ))
         .otherwise(() => null)}

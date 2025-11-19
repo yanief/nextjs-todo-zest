@@ -5,7 +5,6 @@ export const en = {
   "common.languages.en": "English",
   "common.languages.ar": "العربية",
   "common.themeToggle": "Toggle theme",
-
   "common.buttons.add": "Add",
   "common.buttons.back": "Back",
   "common.buttons.delete": "Delete",
@@ -14,17 +13,14 @@ export const en = {
   "common.buttons.next": "Next",
   "common.buttons.confirm": "Confirm",
   "common.buttons.cancel": "Cancel",
-
   "common.aria.loading": "Loading",
   "common.aria.updating": "Updating…",
   "common.aria.toggle.markActive": "Mark as active",
   "common.aria.toggle.markCompleted": "Mark as completed",
-
   "landing.intro": [
     "Built as a front-end case study, this project showcases how to pair the Next.js App Router with a resilient client-side data layer powered by React Query, Zod validation, and ts-pattern result handling.",
     "The TODO experience mirrors a production-grade workflow with optimistic updates, persistent cache, and shareable filters through URL parameters.",
   ],
-
   "landing.cards.projectOverview.title": "About This Project",
   "landing.cards.projectOverview.items": [
     "CRUD todos with optimistic updates",
@@ -32,7 +28,6 @@ export const en = {
     "Detail & edit page with guarded deletes",
     "Validation powered by Zod and ts-pattern",
   ],
-
   "landing.cards.techStack.title": "Tech Stack",
   "landing.cards.techStack.items": [
     "Next.js App Router + React Query",
@@ -40,7 +35,6 @@ export const en = {
     "Zod + ts-pattern + react-hook-form",
     "Tailwind CSS with dark mode",
   ],
-
   "landing.cards.architecture.title": "Architecture Notes",
   "landing.cards.architecture.items": [
     "Repository abstraction over async localStorage",
@@ -48,21 +42,16 @@ export const en = {
     "React Query cache keys bound to filter state",
     "Feature-first directory structure",
   ],
-
   "landing.cta": "Open TODO App",
   "landing.footer.text": "Built for the FE Case Study — ",
   "landing.footer.repo": "GitHub Repository",
-
   "controls.languageLabel": "Language",
   "controls.themeLabel": "Theme",
-
   "todos.page.title": "Todos",
   "todos.page.description":
     "Create, filter, and manage your tasks. Pagination is shareable via the URL.",
   "todos.page.sectionTitle": "Your Todos",
-
   "todos.detailPage.sectionTitle": "Todo Details",
-
   "todos.filters.searchLabel": "Search",
   "todos.filters.searchPlaceholder": "Search todos...",
   "todos.filters.searchHelp": "Filter by title. Updates results instantly.",
@@ -70,39 +59,31 @@ export const en = {
   "todos.filters.options.all": "All",
   "todos.filters.options.active": "Active",
   "todos.filters.options.completed": "Completed",
-
   "todos.form.ariaLabel": "Create todo form",
   "todos.form.label": "New Todo",
   "todos.form.placeholder": "e.g. Buy groceries",
   "todos.form.helper": "Press “Add” to create. Title cannot be empty.",
   "todos.form.error": "Title is required",
-
   "todos.list.emptyTitle": "No todos yet.",
   "todos.list.emptyDescription":
     "Use the form above to create your first task.",
   "todos.list.pagination": "Page {current} of {total}",
-
   "todos.detail.titleLabel": "Title",
   "todos.detail.helper": "Update the title and click save.",
   "todos.detail.deleteTitle": "Delete todo?",
   "todos.detail.deleteDescription": "This action cannot be undone.",
-
   "todos.errors.list": "Failed to load todos",
   "todos.errors.detail": "Failed to load todo",
-
   "toasts.createSuccess": "Todo created",
   "toasts.createError": "Failed to create todo",
   "toasts.updateSuccess": "Todo updated",
   "toasts.updateError": "Failed to update todo",
   "toasts.deleteSuccess": "Todo deleted",
   "toasts.deleteError": "Failed to delete todo",
-
   "errorBoundary.title": "Something went wrong",
   "errorBoundary.message": "We couldn't load your todos. Please try again.",
   "errorBoundary.retry": "Try again",
-
   "loading.title": "Todos",
   "loading.message": "Loading your tasks…",
 };
-
 export type Messages = typeof en;

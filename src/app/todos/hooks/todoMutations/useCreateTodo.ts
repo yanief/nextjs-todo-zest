@@ -49,10 +49,20 @@ export function useCreateTodo() {
           queryClient.setQueryData(key, data);
         });
       }
-      addToast(t("toasts.createError"), "error");
+      addToast(
+        t("Failed to create todo", {
+          key: "toasts.createError",
+        }),
+        "error",
+      );
     },
     onSuccess: () => {
-      addToast(t("toasts.createSuccess"), "success");
+      addToast(
+        t("Todo created", {
+          key: "toasts.createSuccess",
+        }),
+        "success",
+      );
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey: todoKeys.all });

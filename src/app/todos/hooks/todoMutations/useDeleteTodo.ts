@@ -52,10 +52,20 @@ export function useDeleteTodo() {
           context.previousDetail,
         );
       }
-      addToast(t("toasts.deleteError"), "error");
+      addToast(
+        t("Failed to delete todo", {
+          key: "toasts.deleteError",
+        }),
+        "error",
+      );
     },
     onSuccess: () => {
-      addToast(t("toasts.deleteSuccess"), "success");
+      addToast(
+        t("Todo deleted", {
+          key: "toasts.deleteSuccess",
+        }),
+        "success",
+      );
     },
     onSettled: (_data, _error, id) => {
       queryClient.invalidateQueries({ queryKey: todoKeys.all });

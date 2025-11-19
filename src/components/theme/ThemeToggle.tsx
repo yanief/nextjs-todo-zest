@@ -25,7 +25,9 @@ export function ThemeToggle() {
     return (
       <button
         type="button"
-        aria-label={t("common.themeToggle")}
+        aria-label={t("Toggle theme", {
+          key: "common.themeToggle",
+        })}
         className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900"
       />
     );
@@ -37,7 +39,9 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label={t("common.themeToggle")}
+      aria-label={t("Toggle theme", {
+        key: "common.themeToggle",
+      })}
       className={clsx(
         "inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800",
       )}

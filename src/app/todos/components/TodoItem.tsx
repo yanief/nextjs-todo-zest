@@ -29,16 +29,22 @@ export function TodoItem({ todo }: TodoItemProps) {
 
   const confirmDelete = () => {
     openModal({
-      title: t("todos.detail.deleteTitle"),
-      description: t("todos.detail.deleteDescription"),
-      confirmLabel: t("common.buttons.delete"),
-      cancelLabel: t("common.buttons.cancel"),
+      title: t("Delete todo?", {
+        key: "todos.detail.deleteTitle",
+      }),
+      description: t("This action cannot be undone.", {
+        key: "todos.detail.deleteDescription",
+      }),
+      confirmLabel: t("Delete", {
+        key: "common.buttons.delete",
+      }),
+      cancelLabel: t("Cancel", {
+        key: "common.buttons.cancel",
+      }),
       onConfirm: () => deleteMutation.mutate(todo.id),
     });
   };
-
   const isRtl = direction === "rtl";
-
   return (
     <li className="flex items-center justify-between gap-3 rounded-md border border-zinc-200 bg-white px-3 py-2 dark:border-slate-800 dark:bg-slate-900">
       <div
@@ -54,8 +60,12 @@ export function TodoItem({ todo }: TodoItemProps) {
           onChange={toggleCompleted}
           aria-label={
             todo.completed
-              ? t("common.aria.toggle.markActive")
-              : t("common.aria.toggle.markCompleted")
+              ? t("Mark as active", {
+                  key: "common.aria.toggle.markActive",
+                })
+              : t("Mark as completed", {
+                  key: "common.aria.toggle.markCompleted",
+                })
           }
         />
         <Link
@@ -81,7 +91,9 @@ export function TodoItem({ todo }: TodoItemProps) {
             )}
           >
             <Trash2Icon className="h-[1rem]" />
-            {t("common.buttons.delete")}
+            {t("Delete", {
+              key: "common.buttons.delete",
+            })}
           </span>
         </Button>
       </div>

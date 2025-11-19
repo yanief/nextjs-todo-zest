@@ -1,5 +1,4 @@
 "use client";
-
 import { PageContainer } from "@/components/layout/PageContainer";
 import { Section } from "@/components/layout/Section";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -11,10 +10,14 @@ export default function TodosLoading() {
     <PageContainer>
       <header className="flex flex-col gap-1">
         <h1 className="text-2xl font-semibold text-zinc-900 dark:text-white">
-          {t("loading.title")}
+          {t("Todos", {
+            key: "loading.title",
+          })}
         </h1>
         <p className="text-sm text-zinc-500 dark:text-slate-300">
-          {t("loading.message")}
+          {t("Loading your tasks\u2026", {
+            key: "loading.message",
+          })}
         </p>
       </header>
       <Section>

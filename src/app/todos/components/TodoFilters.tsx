@@ -18,7 +18,13 @@ export function TodoFilters() {
   const q = searchParams.get("q") ?? "";
 
   const updateParams = useCallback(
-    (next: Partial<{ status: StatusFilter; q: string; page: number }>) => {
+    (
+      next: Partial<{
+        status: StatusFilter;
+        q: string;
+        page: number;
+      }>,
+    ) => {
       const params = new URLSearchParams(searchParams.toString());
       if (next.status) params.set("status", next.status);
       if (next.q !== undefined) params.set("q", next.q);
@@ -42,11 +48,15 @@ export function TodoFilters() {
           className="mb-1 block text-xs font-medium text-zinc-600 dark:text-slate-300"
           htmlFor="search"
         >
-          {t("todos.filters.searchLabel")}
+          {t("Search", {
+            key: "todos.filters.searchLabel",
+          })}
         </label>
         <Input
           id="search"
-          placeholder={t("todos.filters.searchPlaceholder")}
+          placeholder={t("Search todos...", {
+            key: "todos.filters.searchPlaceholder",
+          })}
           defaultValue={q}
           aria-describedby="search-help"
           onChange={(e) => updateParams({ q: e.target.value, page: 1 })}
@@ -55,7 +65,9 @@ export function TodoFilters() {
           id="search-help"
           className="mt-1 text-[11px] text-zinc-400 dark:text-slate-400"
         >
-          {t("todos.filters.searchHelp")}
+          {t("Filter by title. Updates results instantly.", {
+            key: "todos.filters.searchHelp",
+          })}
         </p>
       </div>
       <div className="w-full sm:w-40">
@@ -63,20 +75,34 @@ export function TodoFilters() {
           className="mb-1 block text-xs font-medium text-zinc-600 dark:text-slate-300"
           htmlFor="status"
         >
-          {t("todos.filters.statusLabel")}
+          {t("Status", {
+            key: "todos.filters.statusLabel",
+          })}
         </label>
         <Select
           id="status"
           value={status}
-          aria-label={t("todos.filters.statusLabel")}
+          aria-label={t("Status", {
+            key: "todos.filters.statusLabel",
+          })}
           onChange={(e) =>
             updateParams({ status: e.target.value as StatusFilter, page: 1 })
           }
         >
-          <option value="all">{t("todos.filters.options.all")}</option>
-          <option value="active">{t("todos.filters.options.active")}</option>
+          <option value="all">
+            {t("All", {
+              key: "todos.filters.options.all",
+            })}
+          </option>
+          <option value="active">
+            {t("Active", {
+              key: "todos.filters.options.active",
+            })}
+          </option>
           <option value="completed">
-            {t("todos.filters.options.completed")}
+            {t("Completed", {
+              key: "todos.filters.options.completed",
+            })}
           </option>
         </Select>
       </div>

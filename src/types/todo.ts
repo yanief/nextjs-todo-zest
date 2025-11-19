@@ -26,5 +26,11 @@ export interface AppError {
 }
 
 export type Result<T, E> =
-  | { type: "success"; data: T }
-  | { type: "error"; error: E };
+  | {
+      type: "success";
+      data: T;
+    }
+  | {
+      type: "error";
+      error: E;
+    };

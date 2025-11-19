@@ -14,8 +14,12 @@ export function ModalHost() {
   const {
     title,
     description,
-    confirmLabel = t("common.buttons.confirm"),
-    cancelLabel = t("common.buttons.cancel"),
+    confirmLabel = t("Confirm", {
+      key: "common.buttons.confirm",
+    }),
+    cancelLabel = t("Cancel", {
+      key: "common.buttons.cancel",
+    }),
     onConfirm,
   } = modal;
 
