@@ -6,6 +6,7 @@ import { useI18n } from "@/i18n/I18nProvider";
 import { TodoList } from "./components/TodoList";
 import { TodoFilters } from "./components/TodoFilters";
 import { AddTodoForm } from "./components/AddTodoForm";
+import { Footer } from "@/components/navigation/Footer";
 
 export const dynamic = "force-dynamic";
 
@@ -43,6 +44,14 @@ export default function TodosPage() {
           <TodoList />
         </div>
       </Section>
+      <Footer
+        text={t("Built for the FE Case Study \u2014 ", {
+          key: "landing.footer.text",
+        })}
+        repoLabel={t("GitHub Repository", {
+          key: "landing.footer.repo",
+        })}
+      />
     </PageContainer>
   );
 }

@@ -3,7 +3,7 @@
 import { useI18n } from "@/i18n/I18nProvider";
 import { InfoCard } from "./InfoCard";
 import { IntroSection } from "./IntroSection";
-import { LandingFooter } from "./LandingFooter";
+import { Footer } from "../navigation/Footer";
 import { PageHeader } from "./PageHeader";
 import { PrimaryButton } from "./PrimaryButton";
 
@@ -91,7 +91,7 @@ export function LandingContent() {
           items={architecture}
         />
       </div>
-      <LandingFooter
+      <Footer
         text={t("Built for the FE Case Study \u2014 ", {
           key: "landing.footer.text",
         })}

@@ -5,6 +5,7 @@ import { Section } from "@/components/layout/Section";
 import { useI18n } from "@/i18n/I18nProvider";
 import { useParams } from "next/navigation";
 import { TodoDetail } from "./components/TodoDetail";
+import { Footer } from "@/components/navigation/Footer";
 
 export default function TodoDetailPage() {
   const params = useParams<{
@@ -25,6 +26,14 @@ export default function TodoDetailPage() {
       >
         <TodoDetail id={id} />
       </Section>
+      <Footer
+        text={t("Built for the FE Case Study \u2014 ", {
+          key: "landing.footer.text",
+        })}
+        repoLabel={t("GitHub Repository", {
+          key: "landing.footer.repo",
+        })}
+      />
     </PageContainer>
   );
 }
