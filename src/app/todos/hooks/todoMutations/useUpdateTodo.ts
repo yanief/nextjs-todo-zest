@@ -8,14 +8,15 @@ import { useUIStore } from "@/stores/ui.store";
 import { optimisticUpdateList } from "./optimisticUpdateList";
 import { useI18n } from "@/i18n/I18nProvider";
 
-export function useDeleteTodoMutation() {
+export function useUpdateTodo() {
   const queryClient = useQueryClient();
   const addToast = useUIStore((s) => s.addToast);
   const { t } = useI18n();
 
   return useMutation({
-    mutationFn: (id: string) => todoRepository.delete(id),
-    onMutate: async (id) => {
+    mutationFn: ({ id, patch }: { id: string; patch: Partial<Todo> }) =>
+      todoRepository.update(id, patch),
+    onMutate: async ({ id, patch }) => {
       await queryClient.cancelQueries({ queryKey: todoKeys.all });
 
       const previousLists = queryClient.getQueriesData<
@@ -29,7 +30,7 @@ export function useDeleteTodoMutation() {
           key,
           (current) =>
             optimisticUpdateList(current, (items) =>
-              items.filter((t) => t.id !== id),
+              items.map((t) => (t.id === id ? { ...t, ...patch } : t)),
             ) ?? data,
         );
       });
@@ -37,30 +38,38 @@ export function useDeleteTodoMutation() {
       const previousDetail = queryClient.getQueryData<Result<Todo, AppError>>(
         todoKeys.detail(id),
       );
+      if (previousDetail && previousDetail.type === "success") {
+        queryClient.setQueryData<Result<Todo, AppError>>(todoKeys.detail(id), {
+          ...previousDetail,
+          data: { ...previousDetail.data, ...patch },
+        });
+      }
 
-      return { previousLists, previousDetail, id };
+      return { previousLists, previousDetail };
     },
-    onError: (_error, _variables, context) => {
+    onError: (_error, variables, context) => {
       if (context?.previousLists) {
         context.previousLists.forEach(([key, data]) => {
           queryClient.setQueryData(key, data);
         });
       }
-      if (context?.previousDetail && context.id) {
+      if (context?.previousDetail && variables?.id) {
         queryClient.setQueryData(
-          todoKeys.detail(context.id),
+          todoKeys.detail(variables.id),
           context.previousDetail,
         );
       }
-      addToast(t("toasts.deleteError"), "error");
+      addToast(t("toasts.updateError"), "error");
     },
     onSuccess: () => {
-      addToast(t("toasts.deleteSuccess"), "success");
+      addToast(t("toasts.updateSuccess"), "success");
     },
-    onSettled: (_data, _error, id) => {
+    onSettled: (_data, _error, variables) => {
       queryClient.invalidateQueries({ queryKey: todoKeys.all });
-      if (id) {
-        queryClient.invalidateQueries({ queryKey: todoKeys.detail(id) });
+      if (variables?.id) {
+        queryClient.invalidateQueries({
+          queryKey: todoKeys.detail(variables.id),
+        });
       }
     },
   });

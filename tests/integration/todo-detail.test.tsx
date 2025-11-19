@@ -12,15 +12,15 @@ vi.mock("next/navigation", () => ({
   useRouter: () => ({ push }),
 }));
 
-vi.mock("@/app/todos/hooks/todoMutations/useUpdateTodoMutation", () => ({
-  useUpdateTodoMutation: () => ({
+vi.mock("@/app/todos/hooks/todoMutations/useUpdateTodo", () => ({
+  useUpdateTodo: () => ({
     mutate: mutateUpdate,
     isPending: false,
   }),
 }));
 
-vi.mock("@/app/todos/hooks/todoMutations/useDeleteTodoMutation", () => ({
-  useDeleteTodoMutation: () => ({
+vi.mock("@/app/todos/hooks/todoMutations/useDeleteTodo", () => ({
+  useDeleteTodo: () => ({
     mutate: mutateDelete,
     isPending: false,
   }),

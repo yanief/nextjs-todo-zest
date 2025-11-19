@@ -7,8 +7,8 @@ import { useUIStore } from "@/stores/ui.store";
 import { Todo } from "@/types/todo";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { useUpdateTodoMutation } from "../../hooks/todoMutations/useUpdateTodoMutation";
-import { useDeleteTodoMutation } from "../../hooks/todoMutations/useDeleteTodoMutation";
+import { useUpdateTodo } from "../../hooks/todoMutations/useUpdateTodo";
+import { useDeleteTodo } from "../../hooks/todoMutations/useDeleteTodo";
 import { SaveIcon, Trash2Icon, Undo2Icon } from "lucide-react";
 import clsx from "clsx";
 
@@ -17,8 +17,8 @@ interface FormValues {
 }
 
 const useTodoDetailDisplay = () => {
-  const updateMutation = useUpdateTodoMutation();
-  const deleteMutation = useDeleteTodoMutation();
+  const updateMutation = useUpdateTodo();
+  const deleteMutation = useDeleteTodo();
   const router = useRouter();
   const openModal = useUIStore((s) => s.openModal);
 

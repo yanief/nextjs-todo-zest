@@ -8,7 +8,7 @@ import { useUIStore } from "@/stores/ui.store";
 import { optimisticUpdateList } from "./optimisticUpdateList";
 import { useI18n } from "@/i18n/I18nProvider";
 
-export function useCreateTodoMutation() {
+export function useCreateTodo() {
   const queryClient = useQueryClient();
   const addToast = useUIStore((s) => s.addToast);
   const { t } = useI18n();

@@ -6,7 +6,7 @@ import { useI18n } from "@/i18n/I18nProvider";
 import { PlusIcon } from "lucide-react";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
-import { useCreateTodoMutation } from "../hooks/todoMutations/useCreateTodo";
+import { useCreateTodo } from "../hooks/todoMutations/useCreateTodo";
 
 interface FormValues {
   title: string;
@@ -14,7 +14,7 @@ interface FormValues {
 
 export function AddTodoForm() {
   const { t, direction } = useI18n();
-  const createMutation = useCreateTodoMutation();
+  const createMutation = useCreateTodo();
 
   const {
     register,

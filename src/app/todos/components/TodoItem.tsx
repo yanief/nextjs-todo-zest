@@ -4,8 +4,8 @@ import Link from "next/link";
 import type { Todo } from "@/types/todo";
 import { Button } from "@/components/ui/Button";
 import { useUIStore } from "@/stores/ui.store";
-import { useUpdateTodoMutation } from "../hooks/todoMutations/useUpdateTodoMutation";
-import { useDeleteTodoMutation } from "../hooks/todoMutations/useDeleteTodoMutation";
+import { useUpdateTodo } from "../hooks/todoMutations/useUpdateTodo";
+import { useDeleteTodo } from "../hooks/todoMutations/useDeleteTodo";
 import { Trash2Icon } from "lucide-react";
 import { useI18n } from "@/i18n/I18nProvider";
 import clsx from "clsx";
@@ -15,8 +15,8 @@ interface TodoItemProps {
 }
 
 export function TodoItem({ todo }: TodoItemProps) {
-  const updateMutation = useUpdateTodoMutation();
-  const deleteMutation = useDeleteTodoMutation();
+  const updateMutation = useUpdateTodo();
+  const deleteMutation = useDeleteTodo();
   const openModal = useUIStore((s) => s.openModal);
   const { t, direction } = useI18n();
 
