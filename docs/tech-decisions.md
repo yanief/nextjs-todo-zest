@@ -46,7 +46,6 @@ All items are intentionally concise and expressed as bullet points, as required 
 - **Zustand** used for UI-only state such as:
   - toasts
   - modals
-  - simple toggle state (e.g., theme)
 - Domain data remains exclusively in React Query to avoid duplication.
 
 ---
@@ -90,7 +89,7 @@ All items are intentionally concise and expressed as bullet points, as required 
 ## Theming
 
 - Light/Dark theme via Tailwind's `dark:` classes.
-- Toggle stored in Zustand or managed using `next-themes`.
+- Toggle theme managed by `next-themes`.
 
 ---
 
