@@ -87,17 +87,19 @@ All items are intentionally concise and expressed as bullet points, as required 
 
 ---
 
-## Theming (optional enhancement)
+## Theming
 
 - Light/Dark theme via Tailwind's `dark:` classes.
 - Toggle stored in Zustand or managed using `next-themes`.
 
 ---
 
-## i18n (optional enhancement)
+## i18n
 
 - Support for `en` and `ar` via next-intl.
 - RTL layout support when Arabic is selected using Tailwind RTL plugin.
+- Translation message-descriptor pattern `t(defaultValue, { key })` instead of key-only translations to
+keep components self-documenting, ensure clear fallback text, and avoid key-text mismatch bugs.
 
 ---
 
