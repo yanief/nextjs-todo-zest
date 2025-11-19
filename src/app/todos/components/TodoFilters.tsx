@@ -43,7 +43,7 @@ export function TodoFilters() {
         isRtl && "sm:flex-row-reverse",
       )}
     >
-      <div className="flex-1">
+      <div className="flex-1 w-full">
         <label
           className="mb-1 block text-xs font-medium text-zinc-600 dark:text-slate-300"
           htmlFor="search"

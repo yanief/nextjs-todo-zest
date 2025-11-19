@@ -18,8 +18,8 @@ export function AppProviders({ initialLocale, children }: AppProvidersProps) {
     <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
       <I18nProvider initialLocale={initialLocale}>
         <QueryProvider>
-          {children}
           <GlobalControls />
+          {children}
           <ModalHost />
           <ToastHost />
         </QueryProvider>

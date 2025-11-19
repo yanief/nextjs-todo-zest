@@ -30,7 +30,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={direction} suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-50 text-slate-900 transition dark:bg-slate-950 dark:text-slate-100`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased pt-[80px] bg-slate-50 text-slate-900 transition dark:bg-slate-950 dark:text-slate-100`}
       >
         <AppProviders initialLocale={locale}>{children}</AppProviders>
       </body>
