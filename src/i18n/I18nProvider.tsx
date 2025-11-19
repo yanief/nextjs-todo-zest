@@ -37,16 +37,14 @@ const I18nContext = createContext<I18nContextValue | undefined>(undefined);
 
 const STORAGE_KEY = "todo-app-locale";
 
-function getNestedValue(
-  obj: MessageValue,
-  path: string[],
-): MessageValue | undefined {
-  return path.reduce<MessageValue | undefined>((acc, part) => {
-    if (acc && typeof acc === "object" && !Array.isArray(acc)) {
-      return acc[part];
-    }
-    return undefined;
-  }, obj);
+function getTranslation(
+  dictionary: { [key: string]: string | string[] },
+  key: string,
+) {
+  if (key in dictionary) {
+    return dictionary[key];
+  }
+  return undefined;
 }
 
 function formatMessage(
@@ -91,8 +89,7 @@ export function I18nProvider({
   const t = useCallback(
     (key: string, values?: Record<string, string | number>) => {
       const dictionary: Messages = dictionaries[locale];
-      const parts = key.split(".");
-      const raw = getNestedValue(dictionary as MessageValue, parts);
+      const raw = getTranslation(dictionary, key);
       if (typeof raw === "string") {
         return formatMessage(raw, values);
       }
@@ -104,8 +101,7 @@ export function I18nProvider({
   const tList = useCallback(
     (key: string, values?: Record<string, string | number>) => {
       const dictionary: Messages = dictionaries[locale];
-      const parts = key.split(".");
-      const raw = getNestedValue(dictionary as MessageValue, parts);
+      const raw = getTranslation(dictionary, key);
       if (Array.isArray(raw)) {
         return raw.map((item) => formatMessage(item, values));
       }
